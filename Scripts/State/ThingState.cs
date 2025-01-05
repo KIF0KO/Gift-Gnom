@@ -19,7 +19,7 @@ public class ThingState : State
         if (Input.GetMouseButtonDown(1))
         {
             player.tr.position = player.target.transform.position + new Vector3(0,1,0);
-            player.tr.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
+            player.tr.GetComponent<Rigidbody>().velocity = Vector3.zero;
             Exit();
         }
     }

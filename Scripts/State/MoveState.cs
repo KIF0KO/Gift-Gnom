@@ -80,10 +80,10 @@ public class MoveState : State
     {
         if (Input.GetMouseButtonDown(1))
         {
-            rb.linearVelocity = Vector3.zero;
+            rb.velocity = Vector3.zero;
             Ray ray = cam.ScreenPointToRay(pointOnScreen);
 
-            rb.linearVelocity = ray.direction * _speedDash;
+            rb.velocity = ray.direction * _speedDash;
             _periodTimer = Time.time + 0.5f;
             _isTimerActive = true;
         }
