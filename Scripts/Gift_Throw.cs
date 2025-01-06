@@ -3,26 +3,49 @@ using UnityEngine;
 public class Gift_Throw : MonoBehaviour
 {
     public GameObject gift;
-    public GameObject spawn_point;
-    private Rigidbody rb;
-    private Vector3 vector;
+    public float throwForce = 500f;
+    public float giftLifetime = 5f;
 
-    private void Start()
-    {
-        rb = gift.GetComponent<Rigidbody>();
-    }
+    public int maxGifts = 5;
+    private int activeGiftCount = 0;
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E))
+        {
             Gift_Throwing();
-        vector = transform.position;
+        }
     }
 
     void Gift_Throwing()
     {
-        Instantiate(gift, spawn_point);
-        new Vector3();
-        rb.AddForce(Vector3.forward * 5);
+        if (activeGiftCount >= maxGifts)
+        {
+            return;
+        }
+
+        GameObject spawnedGift = Instantiate(
+            gift,
+            transform.position + transform.forward * 1.5f,
+            Quaternion.identity
+        );
+
+        activeGiftCount++;
+
+        Rigidbody rb = spawnedGift.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.AddForce(transform.forward * throwForce);
+        }
+
+        StartCoroutine(DestroyAfterTime(spawnedGift, giftLifetime));
+    }
+
+    System.Collections.IEnumerator DestroyAfterTime(GameObject obj, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        Destroy(obj);
+        activeGiftCount--;
     }
 }
