@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
 
     public GameObject thingCam_0;
     public GameObject thingCam_1;
-    
+
     private void Awake()
     {
         singlton = this;
@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
     {
         _SM = new StateMachine();
         _SM.Initialize(new MoveState());
+        
     }
 
     void Update()

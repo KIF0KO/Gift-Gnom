@@ -9,7 +9,7 @@ public class MoveState : State
     Player pl;
     Rigidbody rb;
 
-    public float MousSens = 100f;
+    public float MousSens = 120f;
     float xRot = 0f;
 
     private Transform tr;
@@ -80,10 +80,10 @@ public class MoveState : State
     {
         if (Input.GetMouseButtonDown(1))
         {
-            rb.velocity = Vector3.zero;
+            rb.linearVelocity = Vector3.zero;
             Ray ray = cam.ScreenPointToRay(pointOnScreen);
 
-            rb.velocity = ray.direction * _speedDash;
+            rb.linearVelocity = ray.direction * _speedDash;
             _periodTimer = Time.time + 0.5f;
             _isTimerActive = true;
         }
